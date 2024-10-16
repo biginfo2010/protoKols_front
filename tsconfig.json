@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src", // This tells TypeScript to resolve imports relative to the `src` folder.
+    "paths": {
+      "@src/*": ["src/*"] // This is the alias you're using.
+    }
+  },
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
+}
