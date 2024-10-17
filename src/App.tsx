@@ -1,33 +1,63 @@
-import { useState, useEffect } from 'react';
-import Box from '@mui/material/Box';
-import Loading from './components/loading/Loading';
+// scrollbar
+import 'simplebar-react/dist/simplebar.min.css';
+
+// image
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
+// ----------------------------------------------------------------------
+
+// routes
+import Router from 'src/routes/sections';
+// theme
+import ThemeProvider from 'src/theme';
+// hooks
+import { useScrollToTop } from 'src/hooks/use-scroll-to-top';
+// components
+import ProgressBar from 'src/components/progress-bar';
+import { MotionLazy } from 'src/components/animate/motion-lazy';
+import { SettingsProvider, SettingsDrawer } from 'src/components/settings';
+// auth
+import { AuthProvider, AuthConsumer } from 'src/auth/context/jwt';
+
+// ----------------------------------------------------------------------
 
 export default function App() {
-  const [loading, setLoading] = useState(true);
+  const charAt = `
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1500); // 1.5-second delay for loading
+  ░░░    ░░░
+  ▒▒▒▒  ▒▒▒▒
+  ▒▒ ▒▒▒▒ ▒▒
+  ▓▓  ▓▓  ▓▓
+  ██      ██
 
-    return () => clearTimeout(timer);
-  }, []);
+  `;
+
+  console.info(`%c${charAt}`, 'color: #5BE49B');
+
+  useScrollToTop();
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100vh',
-        flexDirection: 'column',
-      }}
-    >
-      {loading ? (
-        <Loading />
-      ) : (
-        <h1>Welcome to ProtoKOLS</h1>
-      )}
-    </Box>
+    <AuthProvider>
+      <SettingsProvider
+        defaultSettings={{
+          themeMode: 'dark', // 'light' | 'dark'
+          themeDirection: 'ltr', //  'rtl' | 'ltr'
+          themeContrast: 'default', // 'default' | 'bold'
+          themeLayout: 'vertical', // 'vertical' | 'horizontal' | 'mini'
+          themeColorPresets: 'default', // 'default' | 'cyan' | 'purple' | 'blue' | 'orange' | 'red'
+          themeStretch: false,
+        }}
+      >
+        <ThemeProvider>
+          <MotionLazy>
+            <SettingsDrawer />
+            <ProgressBar />
+            <AuthConsumer>
+              <Router />
+            </AuthConsumer>
+          </MotionLazy>
+        </ThemeProvider>
+      </SettingsProvider>
+    </AuthProvider>
   );
 }
