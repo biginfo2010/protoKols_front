@@ -4,6 +4,8 @@ import Stack from '@mui/material/Stack';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 // theme
 import { bgBlur } from 'src/theme/css';
 // hooks
@@ -13,12 +15,7 @@ import { useResponsive } from 'src/hooks/use-responsive';
 import Logo from 'src/components/logo';
 import SvgColor from 'src/components/svg-color';
 import { useSettingsContext } from 'src/components/settings';
-//
 import { HEADER, NAV } from '../config-layout';
-import {
-  Searchbar,
-  LanguagePopover,
-} from '../_common';
 
 // ----------------------------------------------------------------------
 
@@ -51,7 +48,10 @@ export default function Header({ onOpenNav }: Props) {
         </IconButton>
       )}
 
-      <Searchbar />
+      {/* Project Title */}
+      <Typography variant="h4" component="div" sx={{ flexGrow: 1, textAlign: 'center' }}>
+        ProtoKOLS Project
+      </Typography>
 
       <Stack
         flexGrow={1}
@@ -60,7 +60,14 @@ export default function Header({ onOpenNav }: Props) {
         justifyContent="flex-end"
         spacing={{ xs: 0.5, sm: 1 }}
       >
-        <LanguagePopover />
+          {/* Wallet Button */}
+          <Button variant="contained" color="primary">
+            Wallet Connect
+          </Button>
+          {/* <WagmiProvider config={config}>
+            <w3m-connect-button/>
+          </WagmiProvider> */}
+          
       </Stack>
     </>
   );
